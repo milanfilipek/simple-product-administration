@@ -1,0 +1,5 @@
+{block content}
+    <h1>{ifset $product}Upravit produkt: {$product->name}{else}Nový produkt{/ifset}</h1>
+
+    {control productForm}
+{/block}
