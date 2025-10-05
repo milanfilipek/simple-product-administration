@@ -22,9 +22,3 @@ assets:
 		default:
 			path: assets
 			type: vite  # Uncomment to activate Vite for asset building
-
-
-di:
-	export:
-		parameters: no
-		tags: no

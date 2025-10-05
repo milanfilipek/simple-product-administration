@@ -8,6 +8,6 @@ nextras.orm:
 
 nextras.migrations:
 	dir: %appDir%/../migrations
-	driver: mysql
+	driver: mysqli
 	dbal: nextras
 	withDummyData: true
