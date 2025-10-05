@@ -1,7 +1,8 @@
 # see https://doc.nette.org/en/configuring
+extensions:
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
 
 parameters:
-
 
 application:
 	errorPresenter:

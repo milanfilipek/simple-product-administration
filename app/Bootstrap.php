@@ -32,8 +32,8 @@ class Bootstrap
 
 	public function initializeEnvironment(): void
 	{
-		//$this->configurator->setDebugMode('secret@23.75.345.200'); // enable for your remote IP
-		$this->configurator->enableTracy($this->rootDir . '/log');
+        $this->configurator->setDebugMode(true); // enable for all IP
+        $this->configurator->enableTracy($this->rootDir . '/log');
 
 		$this->configurator->createRobotLoader()
 			->addDirectory(__DIR__)
@@ -45,7 +45,7 @@ class Bootstrap
 	{
 		$configDir = $this->rootDir . '/config';
 		$this->configurator->addConfig($configDir . '/common.neon');
-        $this->configurator->addConfig($configDir . '/db.neon');
 		$this->configurator->addConfig($configDir . '/services.neon');
+        $this->configurator->addConfig($configDir . '/db.neon');
 	}
 }

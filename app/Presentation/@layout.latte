@@ -6,10 +6,40 @@
 
 	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
 
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
 	{asset? 'main.js'}
+
+	<style>
+		body {
+			font-family: 'Inter', Arial, sans-serif;
+		}
+		nav {
+			background: #1976d2;
+			padding: 10px;
+			display: flex;
+			align-items: center;
+		}
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-right: 15px;
+		}
+		nav a:hover {
+			text-decoration: underline;
+		}
+	</style>
+	{block styles}{/block}
 </head>
 
 <body>
+	<nav>
+		<a href="{$basePath}/">🏠 Domů</a>
+		<div style="flex:1"></div>
+		<a href="{$basePath}/admin" style="margin-left:auto;">🔑 Admin</a>
+	</nav>
 	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
 	{include content}

@@ -16,8 +16,9 @@ final class RouterFactory
 	{
 		$router = new RouteList;
 		$router->addRoute('<presenter>/<action>[/<id>]', 'Home:default');
-        $router->addRoute('admin/products[/<action>][/<id>]', 'Admin:default');
-        $router->addRoute('admin/product-properties[/<action>][/<id>]', 'Admin:edit');
+        $router->addRoute('admin/products[/<action>][/<id>]', 'ProductAdmin:list');
+        $router->addRoute('admin/users[/<action>][/<id>]', 'UserAdmin:list');
+        $router->addRoute('admin/orders[/<action>][/<id>]', 'OrderAdmin:list');
 		return $router;
 	}
 }

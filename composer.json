@@ -1,9 +1,8 @@
 {
-	"name": "nette/web-project",
-	"description": "Nette: Standard Web Project",
+	"name": "milanfilipek/simple-product-administration",
+	"description": "Simple product administration application built with Nette Framework",
 	"keywords": ["nette"],
 	"type": "project",
-	"license": ["MIT", "BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
 	"require": {
 		"php": ">= 8.1",
 		"nette/application": "^3.2.3",
@@ -21,12 +20,14 @@
 		"latte/latte": "^3.0",
 		"tracy/tracy": "^2.10",
 		"nextras/orm": "^5.0",
-		"nextras/migrations": "^3.4"
+		"nextras/migrations": "^3.4",
+		"nextras/dbal": "^5.0",
+		"contributte/console": "^0.10"
 	},
 	"require-dev": {
+		"roave/security-advisories": "dev-latest",
 		"nette/tester": "^2.5",
-		"phpstan/phpstan-nette": "^2",
-		"symfony/thanks": "^1"
+		"phpstan/phpstan-nette": "^2"
 	},
 	"autoload": {
 		"psr-4": {
@@ -40,7 +41,7 @@
 	"minimum-stability": "stable",
 	"config": {
 		"allow-plugins": {
-			"symfony/thanks": true
+			"symfony/thanks": false
 		}
 	}
 }

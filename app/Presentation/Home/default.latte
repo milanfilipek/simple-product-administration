@@ -1,22 +1,37 @@
 {layout '../@layout.latte'}
 
-<header class="main-header" style="padding:2rem 0;text-align:center;">
-	<h1>Produktová nabídka</h1>
-</header>
+{block content}
 
-<div class="product-list" style="display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;">
-	{foreach $products as $product}
-		<a href="{link Home:detail id=>$product->id}" class="product-card" style="display:block;width:220px;text-decoration:none;color:inherit;border:1px solid #eee;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px #0001;background:#fff;transition:.2s;">
-			<img src="https://via.placeholder.com/220x150?text=Product" alt="{$product->name}" style="width:100%;height:150px;object-fit:cover;">
-			<div style="padding:1rem;">
-				<h2 style="font-size:1.2rem;margin:0 0 .5rem 0;">{$product->name}</h2>
-				{ifset $product->price}
-					<div style="font-weight:bold;color:#2a7;">{$product->price|number:2} Kč</div>
-				{/ifset}
-                {ifset $product->description}
-					<p style="font-size:.95rem;color:#555;">{$product->description}</p>
-				{/ifset}
-			</div>
-		</a>
-	{/foreach}
-</div>
+	<header class="main-header" style="padding:2rem 0;text-align:center;">
+		<h1>Produktová nabídka</h1>
+	</header>
+
+	<div class="product-list" style="display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;">
+		{foreach $products as $product}
+			<a href="{link Product:detail id=>$product->id}" class="product-card" style="display:block;width:220px;text-decoration:none;color:inherit;border:1px solid #eee;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px #0001;background:#fff;transition:.2s; position: relative;">
+				<div style="width:100%;height:150px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;">
+					<span class="material-icons" style="font-size:60px; color:#ccc;">image</span>
+				</div>
+
+				<div style="padding:1rem; position: relative;">
+					<h2 style="font-size:1.2rem;margin:0 0 .5rem 0;">
+						{$product->name}
+						<span style="position:absolute; top:0; right:0; font-size:20px; color:#2a7;">
+							<span class="material-icons">shopping_cart</span>
+						</span>
+					</h2>
+
+					{ifset $product->price}
+						<div style="font-weight:bold;color:#2a7;">{$product->price|number:2} Kč</div>
+					{/ifset}
+
+        			{ifset $product->description}
+						<p style="font-size:.95rem;color:#555;">{$product->description}</p>
+					{/ifset}
+				</div>
+			</a>
+
+		{/foreach}
+	</div>
+
+{/block}

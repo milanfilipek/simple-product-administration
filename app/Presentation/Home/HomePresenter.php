@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Presentation\Home;
 
 use App\Model\Product\ProductsRepository;
-use Nette;
+use Nette\Application\UI\Presenter;
 use Nette\DI\Attributes\Inject;
 
 
-final class HomePresenter extends Nette\Application\UI\Presenter
+final class HomePresenter extends Presenter
 {
     #[Inject]
-    private ProductsRepository $productsRepository;
+    public ProductsRepository $productsRepository;
 
     public function renderDefault(): void
     {

@@ -3,11 +3,19 @@ extensions:
 	nextras.orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
 	nextras.migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
 
+nextras.dbal:
+    driver: pdo_mysql
+    host: db
+    username: db_user
+    password: pwd123
+    database: simple_product_administration
+    charset: utf8mb4
+
 nextras.orm:
 	model: App\Model\Orm
 
 nextras.migrations:
 	dir: %appDir%/../migrations
-	driver: mysqli
+	driver: mysql
 	dbal: nextras
 	withDummyData: true

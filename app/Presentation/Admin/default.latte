@@ -1,25 +1,83 @@
 {block content}
-    <h1>Seznam produktů</h1>
+    <div class="admin-content">
+        {if !$user->isLoggedIn()}
+            {form loginForm}
+                <h2 style="text-align:center; margin-bottom:2rem;">Přihlášení do administrace</h2>
+                <div>
+                    {input username, placeholder: 'Uživatelské jméno'}
+                </div>
+                <div>
+                    {input password, placeholder: 'Heslo'}
+                </div>
 
-    <p><a n:href="Admin:edit">Přidat nový produkt</a></p>
+                {input send}
+            {/form}
+        {else}
+            <h1 class="admin-header">Administrace</h1>
+            <ul class="admin-menu">
+                <li><a n:href="ProductAdmin:list">Produkty</a></li>
+                <li><a n:href="UserAdmin:list">Uživatelské účty</a></li>
+                <li><a n:href="OrderAdmin:list">Objednávky</a></li>
+            </ul>
+        {/if}
+    </div>
+{/block}
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Název</th>
-            <th>Cena</th>
-            <th>Akce</th>
-        </tr>
-        {foreach $products as $product}
-            <tr>
-                <td>{$product->id}</td>
-                <td>{$product->name}</td>
-                <td>{$product->price|number:2} Kč</td>
-                <td>
-                    <a n:href="Admin:edit $product->id">Editovat</a> |
-                    <a n:href="Admin:delete $product->id" onclick="return confirm('Opravdu smazat?')">Smazat</a>
-                </td>
-            </tr>
-        {/foreach}
-    </table>
+{block styles}
+    <style>
+        body {
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+        .admin-content {
+            width: 100%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px #0002;
+            border: 1px solid #1976d2;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        form h2 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        input[type="submit"] {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: .75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+            align-self: center;
+            margin-top: 1rem;
+            min-width: 160px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: .5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background: #1565c0;
+        }
+    </style>
 {/block}

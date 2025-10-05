@@ -1,0 +1,25 @@
+{layout '../@layout.latte'}
+
+{block content}
+    {ifset $product}
+        <h1>{$product->name}</h1>
+        <p>SKU: {$product->sku}</p>
+        <p>EAN: {$product->ean}</p>
+        <p>Cena: {$product->price|number:2} Kč</p>
+        <p>Vytvořeno: {$product->createdAt|date:'d.m.Y H:i'}</p>
+        {if $product->deletedAt}
+            <p>Smazáno: {$product->deletedAt|date:'d.m.Y H:i'}</p>
+        {/if}
+
+        {if $product->productProperties}
+            <h2>Vlastnosti produktu</h2>
+            <ul>
+                {foreach $product->productProperties as $property}
+                    <li>{$property->key}: {$property->value}</li>
+                {/foreach}
+            </ul>
+        {/if}
+    {else}
+        <p>Produkt nebyl nalezen.</p>
+    {/ifset}
+{/block}
