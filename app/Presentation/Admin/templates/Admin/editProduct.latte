@@ -1,0 +1,20 @@
+{layout '@adminLayout.latte'}
+
+{block adminContent}
+    <h1>{ifset $product}Editace produktu{else}Přidání produktu{/ifset}</h1>
+
+    <form n:name="productForm">
+        <div>
+            <label>Název:</label>
+            <input n:name="name">
+        </div>
+        <div>
+            <label>Cena:</label>
+            <input n:name="price">
+        </div>
+        <div>
+            <button type="submit">Uložit</button>
+            <a href="{link products}">Zpět</a>
+        </div>
+    </form>
+{/block}

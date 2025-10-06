@@ -1,0 +1,31 @@
+{layout '@adminLayout.latte'}
+
+{block adminContent}
+    <div class="admin-greetings">
+        <h1>Přehled administrace</h1>
+        <p>Vítejte v administraci. Vyberte sekci v navigaci vlevo.</p>
+    </div>
+{/block}
+
+{block adminStyles}
+    <style>
+        .admin-greetings {
+            width: calc(100% - 312px);
+            padding: 32px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+        .admin-greetings h1 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+        .admin-greetings p {
+            font-size: 1.1em;
+            color: #555;
+            margin: 0;
+        }
+    </style>
+{/block}

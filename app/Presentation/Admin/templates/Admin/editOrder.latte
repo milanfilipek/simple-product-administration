@@ -1,0 +1,24 @@
+{layout '@adminLayout.latte'}
+
+{block adminContent}
+    <h1>{ifset $order}Editace objednávky{else}Přidání objednávky{/ifset}</h1>
+
+    <form n:name="orderForm">
+        <div>
+            <label>Zákazník:</label>
+            <input n:name="customerName">
+        </div>
+        <div>
+            <label>Stav:</label>
+            <input n:name="status">
+        </div>
+        <div>
+            <label>Celková cena:</label>
+            <input n:name="totalPrice">
+        </div>
+        <div>
+            <button type="submit">Uložit</button>
+            <a href="{link orders}">Zpět</a>
+        </div>
+    </form>
+{/block}

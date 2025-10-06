@@ -1,0 +1,29 @@
+{layout '@adminLayout.latte'}
+
+    {block adminContent}
+    <h1>Produkty - administrace</h1>
+    <a href="{link editProduct, id => 0}">Přidat nový produkt</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Název</th>
+                <th>Cena</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach $products as $product}
+            <tr>
+                <td>{$product->id}</td>
+                <td>{$product->name}</td>
+                <td>{$product->price}</td>
+                <td>
+                    <a href="{link editProduct, id => $product->id}">Editovat</a> |
+                    <a href="{link deleteProduct! $product->id}" onclick="return confirm('Opravdu smazat?');">Smazat</a>
+                </td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+{/block}

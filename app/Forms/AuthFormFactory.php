@@ -24,13 +24,13 @@ final class AuthFormFactory
             ->setRequired();
         $form->addSubmit('send', 'Přihlásit se');
 
-        $form->onSuccess[] = function (Form $form, \stdClass $values) {
+        $form->onSuccess[] = static function (Form $form, \stdClass $values) {
             try {
                 $form->getPresenter()?->getUser()->login($values->username, $values->password);
                 $form->getPresenter()?->flashMessage('Přihlášení proběhlo úspěšně.', 'success');
-                $form->getPresenter()?->redirect('Admin:default');
+                $form->getPresenter()?->redirect('Admin:overview');
             } catch (AuthenticationException $e) {
-                $form->addError('Neplatné přihlašovací údaje.');
+                $form->getPresenter()?->flashMessage('Neplatné přihlašovací údaje.', 'error');
             }
         };
 

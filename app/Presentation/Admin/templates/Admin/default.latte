@@ -1,3 +1,5 @@
+{layout '../../../@layout.latte'}
+
 {block content}
     <div class="admin-content">
         {if !$user->isLoggedIn()}
@@ -12,13 +14,6 @@
 
                 {input send}
             {/form}
-        {else}
-            <h1 class="admin-header">Administrace</h1>
-            <ul class="admin-menu">
-                <li><a n:href="ProductAdmin:list">Produkty</a></li>
-                <li><a n:href="UserAdmin:list">Uživatelské účty</a></li>
-                <li><a n:href="OrderAdmin:list">Objednávky</a></li>
-            </ul>
         {/if}
     </div>
 {/block}

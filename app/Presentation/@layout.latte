@@ -14,6 +14,7 @@
 	<style>
 		body {
 			font-family: 'Inter', Arial, sans-serif;
+			height: calc(100vh - 60px);
 		}
 		nav {
 			background: #1976d2;
@@ -30,8 +31,32 @@
 		nav a:hover {
 			text-decoration: underline;
 		}
+		#flash-container {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			z-index: 9999;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		.flash {
+			background: #323232;
+			color: #fff;
+			padding: 12px 24px;
+			border-radius: 6px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+			opacity: 1;
+			transition: opacity 0.5s;
+			min-width: 200px;
+		}
+		.flash.success { background: #43a047; }
+		.flash.error { background: #e53935; }
+		.flash.info { background: #1976d2; }
 	</style>
-	{block styles}{/block}
+	{ifset styles}
+		{include styles}
+	{/ifset}
 </head>
 
 <body>
@@ -40,7 +65,10 @@
 		<div style="flex:1"></div>
 		<a href="{$basePath}/admin" style="margin-left:auto;">🔑 Admin</a>
 	</nav>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+	<div id="flash-container">
+		<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	</div>
 
 	{include content}
 </body>
