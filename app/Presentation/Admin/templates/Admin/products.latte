@@ -1,29 +1,88 @@
 {layout '@adminLayout.latte'}
 
-    {block adminContent}
-    <h1>Produkty - administrace</h1>
-    <a href="{link editProduct, id => 0}">Přidat nový produkt</a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Název</th>
-                <th>Cena</th>
-                <th>Akce</th>
-            </tr>
-        </thead>
-        <tbody>
-        {foreach $products as $product}
-            <tr>
-                <td>{$product->id}</td>
-                <td>{$product->name}</td>
-                <td>{$product->price}</td>
-                <td>
-                    <a href="{link editProduct, id => $product->id}">Editovat</a> |
-                    <a href="{link deleteProduct! $product->id}" onclick="return confirm('Opravdu smazat?');">Smazat</a>
-                </td>
-            </tr>
-        {/foreach}
-        </tbody>
-    </table>
+{block adminContent}
+    <div class="admin-table-wrapper">
+        <div class="admin-heading">
+            <h1>Administrace produktů</h1>
+        </div>
+        <a href="{link editProduct, id => 0}" class="admin-add-btn">Přidat nový produkt</a>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Název</th>
+                    <th>Cena</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+            {foreach $products as $product}
+                <tr>
+                    <td>{$product->id}</td>
+                    <td>{$product->name}</td>
+                    <td>{$product->price} Kč</td>
+                    <td>
+                        <a href="{link editProduct, id => $product->id}" class="admin-edit-btn">Editovat</a>
+                        <a href="{link deleteProduct! $product->id}" onclick="return confirm('Opravdu smazat?');" class="admin-delete-btn">Smazat</a>
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+{/block}
+
+{block adminStyles}
+    <style>
+        .admin-heading {
+            margin-bottom: 2em;
+        }
+        .admin-heading h1 {
+            text-align: center;
+        }
+        .admin-table-wrapper {
+            background: #fff;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 3px 9px 13px 7px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2em;
+            align-self: center;
+            height: 75vh;
+            margin-left: 20%;
+            min-width: 35%;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #eee;
+            padding: 0.75em;
+            text-align: center;
+        }
+        .admin-table th {
+            background: #f2f2f2;
+            font-weight: bold;
+        }
+        .admin-add-btn, .admin-edit-btn, .admin-delete-btn {
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 0.5em;
+            cursor: pointer;
+        }
+        .admin-edit-btn {
+            background: #28a745;
+        }
+        .admin-delete-btn {
+            background: #dc3545;
+        }
+        .admin-add-btn:hover, .admin-edit-btn:hover, .admin-delete-btn:hover {
+            opacity: 0.85;
+        }
+    </style>
 {/block}

@@ -2,21 +2,34 @@
 
 {block adminContent}
     <div class="admin-heading">
-        <h1>{ifset $product}Editace produktu{else}Přidání produktu{/ifset}</h1>
+        <h1>{ifset $customer}Editace uživatele{else}Přidání uživatele{/ifset}</h1>
     </div>
     <div class="admin-form-wrapper">
-        <form n:name="productForm">
+        <form n:name="customerForm">
             <div>
-                <label>Název:</label>
-                <input n:name="name">
+                <label>Jméno:</label>
+                <input n:name="firstName" placeholder="Jan">
             </div>
             <div>
-                <label>Cena:</label>
-                <input n:name="price">
+                <label>Příjmení:</label>
+                <input n:name="lastName" placeholder="Novák">
+            </div>
+            <div>
+                <label>Email:</label>
+                <input n:name="email" type="email" placeholder="jan.novak@example.com">
+            </div>
+            <div>
+                <label>Heslo:</label>
+                <input n:name="password" type="password" {ifset $customer}placeholder="******"{/ifset}>
+                {ifset $customer}<small>Nechte prázdné pro zachování stávajícího hesla</small>{/ifset}
+            </div>
+            <div>
+                <label>Aktivní:</label>
+                <input n:name="isActive" type="checkbox" {ifset $customer && $customer->isActive}checked{/ifset}>
             </div>
             <div>
                 <button type="submit">Uložit</button>
-                <a href="{link products}">Zpět</a>
+                <a href="{link adminCustomers}">Zpět</a>
             </div>
         </form>
     </div>

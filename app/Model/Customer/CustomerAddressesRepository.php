@@ -7,15 +7,12 @@ namespace App\Model\Customer;
 use Nextras\Orm\Repository\Repository;
 
 /**
- * @extends Repository<Customer>
+ * @extends Repository<CustomerAddress>
  */
-final class CustomersRepository extends Repository
+final class CustomerAddressesRepository extends Repository
 {
     public static function getEntityClassNames(): array
     {
-        return [Customer::class];
+        return [CustomerAddress::class];
     }
-
-
 }
-

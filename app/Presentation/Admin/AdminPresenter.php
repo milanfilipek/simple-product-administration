@@ -3,6 +3,7 @@
 namespace App\Presentation\Admin;
 
 use App\Forms\AuthFormFactory;
+use App\Model\Customer\CustomersRepository;
 use Nette\Application\UI\Presenter;
 use Nette\DI\Attributes\Inject;
 use App\Model\Product\ProductsRepository;
@@ -14,9 +15,10 @@ final class AdminPresenter extends Presenter
     public ProductsRepository $productRepository;
     #[Inject]
     public OrdersRepository $orderRepository;
-    // TODO: UserRepository
     #[Inject]
     public AuthFormFactory $authFormFactory;
+    #[Inject]
+    public CustomersRepository $customersRepository;
 
     public function actionDefault(): void
     {
@@ -70,5 +72,24 @@ final class AdminPresenter extends Presenter
         $this->redirect('orders');
     }
 
-    // TODO: Uživatelé (až bude UserRepository)
+    public function renderUsers(): void
+    {
+        $this->template->users = $this->customersRepository->findAll();
+    }
+
+    public function actionEditUser(int $id): void
+    {
+        $user = $this->customersRepository->findById($id);
+        if (!$user) {
+            $this->error('Uživatel nebyl nalezen.');
+        }
+        $this->template->user = $user;
+    }
+
+    public function handleDeleteUser(int $id): void
+    {
+        $this->customersRepository->deleteById($id);
+        $this->flashMessage('Uživatel byl smazán.');
+        $this->redirect('users');
+    }
 }
