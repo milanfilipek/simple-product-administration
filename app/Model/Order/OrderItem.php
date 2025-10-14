@@ -6,16 +6,17 @@ namespace App\Model\Order;
 
 use App\Model\Product\Product;
 use Nextras\Orm\Entity\Entity;
+use Nextras\Orm\Relationships\ManyHasOne;
 
 /**
  * OrderItem
  *
- * @property int                $id          {primary}
- * @property Order              $order       {m:1 Order::$items}
- * @property Product            $product     {m:1 Product::$orderItems}
- * @property int                $quantity
- * @property float              $unitPrice
- * @property float              $totalPrice  {virtual}
+ * @property int                    $id          {primary}
+ * @property ManyHasOne<Order>      $order       {m:1 Order::$items}
+ * @property ManyHasOne<Product>    $product     {m:1 Product::$orderItems}
+ * @property int                    $quantity
+ * @property float                  $unitPrice
+ * @property float                  $totalPrice  {virtual}
  */
 final class OrderItem extends Entity
 {

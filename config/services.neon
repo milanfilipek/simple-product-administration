@@ -1,6 +1,7 @@
 services:
 	- App\Core\RouterFactory::createRouter
-	- App\Model\Auth\Authenticator
+	- App\Core\Authenticator
+	- App\Core\Authorizator
 
 search:
 	-	in: %appDir%

@@ -1,0 +1,95 @@
+{layout '../@layout.latte'}
+
+{block content}
+    <div class="customer-content">
+        {if !$user->isLoggedIn() || !$user->isInRole('user')}
+            {form userLoginForm}
+                <h2>Přihlášení do aplikace</h2>
+
+                <div>
+                    {input username}
+                </div>
+                <div>
+                    {input password}
+                </div>
+
+                {input send}
+            {/form}
+        {/if}
+    </div>
+{/block}
+
+{block styles}
+    <style>
+        body {
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+        .customer-content {
+            width: 100%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px #0002;
+            border: 1px solid #388e3c; /* zelený tón místo modrého */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        form h2 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #388e3c;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        input[type="submit"] {
+            background: #388e3c;
+            color: #fff;
+            border: none;
+            padding: .75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+            align-self: center;
+            margin-top: 1rem;
+            min-width: 160px;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: .5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background: #2e7d32;
+        }
+        .already-logged {
+            text-align: center;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px #0002;
+            border: 1px solid #388e3c;
+        }
+        .already-logged a {
+            color: #388e3c;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .already-logged a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{/block}

@@ -16,14 +16,14 @@
                 </tr>
             </thead>
             <tbody>
-            {foreach $users as $oneUser}
+            {foreach $customers as $customer}
                 <tr>
-                    <td>{$oneUser->id}</td>
-                    <td>{$oneUser->email}</td>
-                    <td>{$oneUser->firstName} {$oneUser->lastName}</td>
+                    <td>{$customer->id}</td>
+                    <td>{$customer->email}</td>
+                    <td>{$customer->firstName} {$customer->lastName}</td>
                     <td>
-                        <a href="{link edit, id => $oneUser->id}" class="admin-edit-btn">Editovat</a>
-                        <a href="{link deleteUser!, id => $oneUser->id}" onclick="return confirm('Opravdu smazat?');" class="admin-delete-btn">Smazat</a>
+                        <a href="{link editCustomer, id => $customer->id}" class="admin-edit-btn">Editovat</a>
+                        <a href="{link deleteCustomer!, id => $customer->id}" onclick="return confirm('Opravdu smazat?');" class="admin-delete-btn">Smazat</a>
                     </td>
                 </tr>
             {/foreach}

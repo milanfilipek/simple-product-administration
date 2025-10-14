@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Product;
+namespace App\Model\User;
 
 use Nextras\Orm\Repository\Repository;
 
 /**
- * @extends Repository<Product>
+ * @extends Repository<User>
  */
-class ProductsRepository extends Repository
+final class UsersRepository extends Repository
 {
     public static function getEntityClassNames(): array
     {
-        return [Product::class];
+        return [User::class];
     }
 
-    public function findById(int $id): ?Product
+    public function findById(int $id): ?User
     {
         return $this->findBy(['id' => $id])->fetch();
     }
 }
+

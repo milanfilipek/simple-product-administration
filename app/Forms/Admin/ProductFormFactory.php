@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Forms;
+namespace App\Forms\Admin;
 
-use Nette\Application\UI\Form;
-use App\Model\Product\Product;
 use App\Model\Orm;
-use Nette\DI\Attributes\Inject;
+use App\Model\Product\Product;
+use Nette\Application\UI\Form;
 use Nette\SmartObject;
 
 final class ProductFormFactory
 {
     use SmartObject;
 
-    #[Inject]
-    public Orm $orm;
+    private Orm $orm;
+
+    public function __construct(Orm $orm)
+    {
+        $this->orm = $orm;
+    }
 
     public function create(?Product $product = null): Form
     {
@@ -43,10 +46,10 @@ final class ProductFormFactory
             $product->name = $values->name;
             $product->price = (float) $values->price;
 
-            $this->orm->products->persistAndFlush($product);
+            $this->orm->persistAndFlush($product);
 
-            $form->getPresenter()->flashMessage('Produkt byl uložen.', 'success');
-            $form->getPresenter()->redirect('Admin:default');
+            $form->getPresenter()?->flashMessage('Produkt byl uložen.', 'success');
+            $form->getPresenter()?->redirect('Admin:products');
         };
 
         return $form;

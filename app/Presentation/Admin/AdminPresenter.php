@@ -2,94 +2,125 @@
 
 namespace App\Presentation\Admin;
 
+use App\Forms\Admin\UserFormFactory;
+use App\Forms\Admin\ProductFormFactory;
 use App\Forms\AuthFormFactory;
-use App\Model\Customer\CustomersRepository;
+use App\Model\Orm;
+use App\Model\User\UsersRepository;
+use App\Model\Order\OrdersRepository;
+use App\Model\Product\ProductsRepository;
 use Nette\Application\UI\Presenter;
 use Nette\DI\Attributes\Inject;
-use App\Model\Product\ProductsRepository;
-use App\Model\Order\OrdersRepository;
 
 final class AdminPresenter extends Presenter
 {
     #[Inject]
-    public ProductsRepository $productRepository;
-    #[Inject]
-    public OrdersRepository $orderRepository;
-    #[Inject]
     public AuthFormFactory $authFormFactory;
     #[Inject]
-    public CustomersRepository $customersRepository;
+    public ProductFormFactory $productFormFactory;
+    #[Inject]
+    public UserFormFactory $userFormFactory;
+
+    public function __construct(
+        private readonly Orm $orm,
+    ) {
+        parent::__construct();
+    }
 
     public function actionDefault(): void
     {
-        if ($this->getUser()->isLoggedIn() || $this->getUser()->isInRole('admin')) {
+        if ($this->getUser()->isAllowed('Admin')) {
             $this->redirect('Admin:overview');
         }
     }
 
-    protected function createComponentLoginForm()
-    {
-        return $this->authFormFactory->create();
-    }
-
-    // Produkty
     public function renderProducts(): void
     {
-        $this->template->products = $this->productRepository->findAll();
+        $this->getTemplate()->products = $this->orm->getRepository(ProductsRepository::class)->findAll();
     }
     public function actionEditProduct(int $id): void
     {
-        $product = $this->productRepository->findById($id);
+        $product = $this->orm->getRepository(ProductsRepository::class)->findById($id);
         if (!$product) {
             $this->error('Produkt nebyl nalezen.');
         }
-        $this->template->product = $product;
-    }
-    public function handleDeleteProduct(int $id): void
-    {
-        $this->productRepository->deleteById($id);
-        $this->flashMessage('Produkt byl smazán.');
-        $this->redirect('products');
+        $this->getTemplate()->product = $product;
     }
 
-    // Objednávky
+    protected function createComponentProductForm()
+    {
+        $productId = $this->getParameter('id');
+        $product = $productId ? $this->orm->getRepository(ProductsRepository::class)->findById($productId) : null;
+
+        return $this->productFormFactory->create($product);
+    }
+
+
+    public function handleDeleteProduct(int $id): void
+    {
+        $product = $this->orm->getRepository(ProductsRepository::class)->findById($id);
+        if ($product) {
+            $this->orm->removeAndFlush($product);
+        }
+
+        $this->flashMessage('Produkt byl smazán.', 'success');
+        $this->redirect('Admin:products');
+    }
+
     public function renderOrders(): void
     {
-        $this->template->orders = $this->orderRepository->findAll();
+        $this->getTemplate()->orders = $this->orm->getRepository(OrdersRepository::class)->findAll();
     }
     public function actionEditOrder(int $id): void
     {
-        $order = $this->orderRepository->findById($id);
+        $order = $this->orm->getRepository(OrdersRepository::class)->findById($id);
         if (!$order) {
             $this->error('Objednávka nebyla nalezena.');
         }
-        $this->template->order = $order;
+
+        $this->getTemplate()->order = $order;
     }
     public function handleDeleteOrder(int $id): void
     {
-        $this->orderRepository->deleteById($id);
+        $order = $this->orm->getRepository(OrdersRepository::class)->findById($id);
+        if ($order) {
+            $this->orm->removeAndFlush($order);
+        }
+
         $this->flashMessage('Objednávka byla smazána.');
         $this->redirect('orders');
     }
 
     public function renderUsers(): void
     {
-        $this->template->users = $this->customersRepository->findAll();
+        $this->getTemplate()->users = $this->orm->getRepository(UsersRepository::class)->findAll();
     }
 
     public function actionEditUser(int $id): void
     {
-        $user = $this->customersRepository->findById($id);
+        $user = $this->orm->getRepository(UsersRepository::class)->findById($id);
         if (!$user) {
             $this->error('Uživatel nebyl nalezen.');
         }
-        $this->template->user = $user;
+        $this->getTemplate()->user = $user;
     }
 
     public function handleDeleteUser(int $id): void
     {
-        $this->customersRepository->deleteById($id);
+        $user = $this->orm->getRepository(UsersRepository::class)->findById($id);
+        if ($user) {
+            $this->orm->removeAndFlush($user);
+        }
+
         $this->flashMessage('Uživatel byl smazán.');
-        $this->redirect('users');
+        $this->redirect('customers');
+    }
+
+    protected function createComponentUserForm()
+    {
+        $userId = $this->getParameter('id');
+        $user = $userId ? $this->orm->getRepository(UsersRepository::class)->findById($userId) : null;
+
+        return $this->userFormFactory->create($user);
     }
 }

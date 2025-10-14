@@ -3,17 +3,18 @@
 namespace App\Forms;
 
 use Nette\Application\UI\Form;
-use Nette\Security\User;
 use Nette\Security\AuthenticationException;
-use Nette\DI\Attributes\Inject;
+use Nette\Security\User;
 use Nette\SmartObject;
 
 final class AuthFormFactory
 {
     use SmartObject;
 
-    #[Inject]
-    public User $user;
+    public function __construct(
+        private readonly User $user,
+    ){
+    }
 
     public function create(): Form
     {
@@ -28,7 +29,14 @@ final class AuthFormFactory
             try {
                 $form->getPresenter()?->getUser()->login($values->username, $values->password);
                 $form->getPresenter()?->flashMessage('Přihlášení proběhlo úspěšně.', 'success');
-                $form->getPresenter()?->redirect('Admin:overview');
+                if ($form->getPresenter()?->getUser()->isAllowed('Admin')) {
+                    $form->getPresenter()?->redirect('Admin:overview');
+                } elseif ($form->getPresenter()?->getUser()->isAllowed('User')) {
+                    $form->getPresenter()?->redirect('User:profile');
+                } else {
+                    $form->getPresenter()?->redirect('Home:default');
+                }
+
             } catch (AuthenticationException $e) {
                 $form->getPresenter()?->flashMessage('Neplatné přihlašovací údaje.', 'error');
             }

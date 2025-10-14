@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Customer;
+namespace App\Model\User;
 
 use Nextras\Orm\Entity\Entity;
+use Nextras\Orm\Relationships\ManyHasOne;
 
 /**
- * CustomerAddress
+ * UserAddress
  *
  * @property int                     $id          {primary}
- * @property Customer                $customer    {m:1 Customer::$addresses}
+ * @property ManyHasOne<User>        $user        {m:1 User::$addresses}
  * @property string                  $type        {enum self::TYPE_*}
  * @property string                  $street
  * @property string                  $city
@@ -19,7 +20,7 @@ use Nextras\Orm\Entity\Entity;
  * @property \DateTimeImmutable      $createdAt   {default now}
  * @property \DateTimeImmutable|null $updatedAt
  */
-final class CustomerAddress extends Entity
+final class UserAddress extends Entity
 {
     public const TYPE_BILLING = 'billing';
     public const TYPE_SHIPPING = 'shipping';

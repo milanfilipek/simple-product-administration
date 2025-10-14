@@ -61,9 +61,18 @@
 
 <body>
 	<nav>
-		<a href="{$basePath}/">🏠 Domů</a>
+		<a n:href="Home:default">🏠 Domů</a>
 		<div style="flex:1"></div>
-		<a href="{$basePath}/admin" style="margin-left:auto;">🔑 Admin</a>
+		{if !$user->isLoggedIn()}
+			<a n:href="User:login">👤 Přihlásit se</a>
+		{elseif $user->isLoggedIn() && $user->isInRole('customer')}
+			<a n:href="User:profile">👤 Můj profil</a>
+			<a n:href="User:logout">🚪 Odhlásit</a>
+		{/if}
+
+		{if $user->isLoggedIn() && $user->isInRole('admin')}
+			<a n:href="Admin:overview" style="margin-left:auto;">🔑 Admin</a>
+		{/if}
 	</nav>
 
 	<div id="flash-container">

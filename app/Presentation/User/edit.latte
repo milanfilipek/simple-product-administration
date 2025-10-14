@@ -1,0 +1,80 @@
+{layout '../@layout.latte'}
+
+{block content}
+    <div class="admin-content">
+        <form n:name="userForm">
+            <h2 style="text-align:center; margin-bottom:2rem;">Upravit profil a adresy</h2>
+
+            {foreach $form->getGroups() as $group}
+                <fieldset id="{$group->getOption('id')}">
+                    <legend>{$group->getOption('label')}</legend>
+                    {foreach $group->getControls() as $item}
+                        {if $item->getValue() !== 'save'}
+                            <div>{input $item}</div>
+                        {/if}
+
+                    {/foreach}
+                </fieldset>
+            {/foreach}
+
+            <div style="text-align:center; margin-top:1.5rem;">
+                <button type="submit" name="save" class="btn-submit">Uložit změny</button>
+            </div>
+        </form>
+    </div>
+{/block}
+
+{block styles}
+    <style>
+        .admin-content {
+            width: 100%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            max-width: 450px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 3.5rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px #0002;
+            border: 1px solid #1976d2;
+        }
+        fieldset {
+            border: 1px solid #1976d2;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        legend {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        input[type="text"], input[type="email"] {
+            width: 95%;
+            padding: .5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-submit {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: .75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+            align-self: center;
+            min-width: 160px;
+        }
+        .btn-submit:hover {
+            background: #1565c0;
+        }
+    </style>
+{/block}

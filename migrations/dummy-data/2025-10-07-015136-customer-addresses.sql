@@ -1,4 +1,4 @@
-INSERT INTO `customer_addresses` (`customer_id`, `type`, `street`, `city`, `postal_code`, `country`) VALUES
+INSERT INTO `user_addresses` (`user_id`, `type`, `street`, `city`, `postal_code`, `country`) VALUES
 (1, 'billing', 'Hlavní 123', 'Ostrava', '70030', 'Česká republika'),
 (1, 'shipping', 'Hlavní 123', 'Ostrava', '70030', 'Česká republika'),
 

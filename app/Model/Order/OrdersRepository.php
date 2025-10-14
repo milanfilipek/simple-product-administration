@@ -15,4 +15,9 @@ final class OrdersRepository extends Repository
     {
         return [Order::class];
     }
+
+    public function findById(int $id): ?Order
+    {
+        return $this->findBy(['id' => $id])->fetch();
+    }
 }

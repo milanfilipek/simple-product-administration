@@ -25,11 +25,11 @@
             </div>
             <div>
                 <label>Aktivní:</label>
-                <input n:name="isActive" type="checkbox" {ifset $customer && $customer->isActive}checked{/ifset}>
+                <input n:name="isActive" type="checkbox" {if $customer && $customer->isActive}checked{/if}>
             </div>
             <div>
                 <button type="submit">Uložit</button>
-                <a href="{link adminCustomers}">Zpět</a>
+                <a href="{link customers}">Zpět</a>
             </div>
         </form>
     </div>

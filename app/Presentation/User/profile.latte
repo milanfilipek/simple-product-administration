@@ -1,0 +1,79 @@
+{layout '../@layout.latte'}
+
+{block content}
+    <div class="customer-profile">
+        <div class="profile-box">
+            <h2>Vítejte ve své zákaznické zóně</h2>
+            <p>Jste přihlášen jako: <strong>{$user->getIdentity()?->name ?? $user->getIdentity()?->email}</strong></p>
+
+            <div class="profile-actions">
+                <a n:href="User:edit" class="edit-btn">Upravit údaje</a>
+                <a n:href="User:logout" class="logout-btn">Odhlásit se</a>
+            </div>
+        </div>
+    </div>
+{/block}
+
+{block styles}
+    <style>
+        body {
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+        .customer-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        .profile-box {
+            background: #fff;
+            padding: 3rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px #0002;
+            border: 1px solid #388e3c;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        .profile-box h2 {
+            color: #388e3c;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .profile-box p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        .profile-actions {
+            display: flex;
+            justify-content: center;
+        }
+        .logout-btn {
+            background: #388e3c;
+            color: #fff;
+            padding: .75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background .2s;
+        }
+        .logout-btn:hover {
+            background: #2e7d32;
+        }
+        .edit-btn {
+            background: #007bff;
+            color: #fff;
+            padding: .75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+            transition: background .2s;
+        }
+        .edit-btn:hover {
+            background: #003cf5;
+        }
+    </style>
+{/block}
